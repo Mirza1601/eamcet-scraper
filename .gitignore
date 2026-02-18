@@ -1,0 +1,12 @@
+# Generated output files — these get committed by GitHub Actions after scraping
+# Uncomment the lines below if you want to exclude them from manual commits
+# all_students.csv
+# qualified_ranked.csv
+
+# Checkpoint file — do not commit this, it's machine-specific
+checkpoint.txt
+
+# Python
+__pycache__/
+*.py[cod]
+.env
