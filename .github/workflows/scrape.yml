@@ -1,0 +1,36 @@
+name: EAMCET Scraper
+
+on:
+  workflow_dispatch:
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run scraper (full mode)
+        run: |
+          sed -i 's/SAMPLE_MODE     = True/SAMPLE_MODE     = False/' scraper.py
+          python scraper.py
+
+      - name: Commit and push CSV output to repo
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add all_students.csv qualified_ranked.csv
+          git diff --staged --quiet || git commit -m "Add scraped EAMCET data [$(date +'%Y-%m-%d %H:%M')]"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
