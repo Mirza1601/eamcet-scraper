@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # TS EAMCET 2025 Results Scraper
 
 A concurrent web scraper that collects student results from the Telangana EAMCET 2025 results portal, identifies qualified students, and outputs structured CSV data sorted by rank.
