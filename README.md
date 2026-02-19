@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # TS EAMCET 2025 Results Scraper
 
 A concurrent web scraper that collects student results from the Telangana EAMCET 2025 results portal, identifies qualified students, and outputs structured CSV data sorted by rank.
@@ -203,3 +204,7 @@ eamcet_scraper/
 - Built with responsible scraping practices — 50 concurrent workers with timeouts
 - Do not increase `MAX_WORKERS` beyond 100 as it may cause connection issues
 - The portal being scraped is `results.manabadi.co.in` — a public government results website
+=======
+# eamcet-scraper
+TS EAMCET 2025 Results Scrape
+>>>>>>> 76f9167984038a3acee58f501a41a70fb11d2e3f
