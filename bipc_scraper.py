@@ -180,7 +180,7 @@ async def run_async_scraper(tickets_to_run, total_full):
 
     wall_time = time.time() - start_wall
 
-    qualified = [r for r in all_records if r['Status'].lower() == 'qualified']
+    qualified = [r for r in all_records if 'disqualified' not in r['Status'].lower()]
     qualified_sorted = sorted(
         qualified,
         key=lambda x: x['Rank'] if x['Rank'] is not None else float('inf')
