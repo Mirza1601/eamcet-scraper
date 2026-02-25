@@ -1,0 +1,38 @@
+name: AP BIPC Scraper
+
+on:
+  workflow_dispatch:
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install aiohttp
+
+      - name: Run BIPC scraper (full mode)
+        run: |
+          sed -i 's/SAMPLE_MODE     = True/SAMPLE_MODE     = False/' bipc_scraper.py
+          python bipc_scraper.py
+
+      - name: Commit and push CSV output to repo
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch origin
+          git reset --hard origin/main
+          git add -f bipc_all_students.csv bipc_qualified_ranked.csv bipc_checkpoint.txt
+          git diff --staged --quiet || git commit -m "Add AP BIPC scraped data [$(date +'%Y-%m-%d %H:%M')]"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
